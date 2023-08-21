@@ -11,7 +11,7 @@ os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 
 llm = ChatOpenAI(temperature=0, max_tokens=1000, model_name="gpt-3.5-turbo")
 
-st.title("MarFin 0.0.26\n (Kognitivní vyhledávání v obsahu PDF. Jako by to někdo potřeboval.)")
+st.title("MarFin 0.0.26\n (Kognitivní vyhledávání v obsahu dokumetů. Jako by to někdo potřeboval.)")
 
 with st.sidebar:
     uploaded_files = st.file_uploader("Výběr souborů PDF", accept_multiple_files=True, type="pdf")
