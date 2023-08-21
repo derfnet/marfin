@@ -4,4 +4,4 @@ openai
 chromadb
 tiktoken
 pypdf
-unstructured[local-inference]n
+unstructured[local-inference]
