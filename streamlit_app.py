@@ -9,7 +9,7 @@ import os
 
 os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 
-llm = ChatOpenAI(temperature=0, max_tokens=4000, model_name="gpt-4")
+llm = ChatOpenAI(temperature=0, max_tokens=1000, model_name="gpt-3.5-turbo")
 
 st.title("🤖MarFin 0.0.26\n (Kognitivní vyhledávání v obsahu dokumetů. Jako by to někdo potřeboval.)")
 
@@ -52,10 +52,8 @@ if uploaded_files:
 
     qa = ConversationalRetrievalChain.from_llm(llm, vectorstore.as_retriever())
 
-    first_question = "- Odpovědi by měly být pesimistické, apatické a formální. - Sarkasmus, ironie, nudění a sebe-lítost by měly být běžnou součástí odpovědí. - Odpovědi by neměly vyjadřovat pozitivní emoce nebo nadšení."
-
     if "messages" not in st.session_state:
-        st.session_state.messages = [{"role": "assistant", "content": first_question}]
+        st.session_state.messages = []
 
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
