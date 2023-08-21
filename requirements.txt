@@ -1,0 +1,7 @@
+langchai
+streamlit
+openai
+chromadb
+tiktoken
+pypdf
+unstructured[local-inference]n

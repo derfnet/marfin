@@ -7,7 +7,7 @@ from langchain.chat_models import ChatOpenAI
 from langchain.document_loaders import UnstructuredPDFLoader
 import os
 
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 
 llm = ChatOpenAI(temperature=0, max_tokens=1000, model_name="gpt-3.5-turbo")
 
