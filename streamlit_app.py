@@ -68,12 +68,14 @@ if uploaded_files:
         result = qa({"question": prompt, "chat_history": [(message["role"], message["content"]) for message in st.session_state.messages]})
 
         source_documents = result.get('source_documents', [])
-        sources = [doc['metadata']['source'] for doc in source_documents]
+        sources = [doc['metadata']['source'] for doc in source_documents if 'metadata' in doc and 'source' in doc['metadata']]
+        sources_str = ', '.join(sources)
+
 
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
             full_response = ""
-            full_response = result["answer"] + ', '.join(sources)
+            full_response = result["answer"] + sources_str
             message_placeholder.markdown(full_response + "|")
         message_placeholder.markdown(full_response)    
         print(full_response)
