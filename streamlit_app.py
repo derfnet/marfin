@@ -5,14 +5,13 @@ from langchain.text_splitter import CharacterTextSplitter
 from langchain.chains import ConversationalRetrievalChain
 from langchain.chat_models import ChatOpenAI
 from langchain.document_loaders import UnstructuredPDFLoader
-import json
 import os
 
 os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 
 llm = ChatOpenAI(temperature=0, max_tokens=1000, model_name="gpt-3.5-turbo")
 
-st.title("🤖MarFin 0.0.27\n (Kognitivní vyhledávání v obsahu dokumetů. Jako by to někdo potřeboval.)")
+st.title("🤖MarFin 0.0.26\n (Kognitivní vyhledávání v obsahu dokumetů. Jako by to někdo potřeboval.)")
 
 with st.sidebar:
     uploaded_files = st.file_uploader("Výběr souborů PDF", accept_multiple_files=True, type="pdf")
@@ -67,8 +66,6 @@ if uploaded_files:
 
         result = qa({"question": prompt, "chat_history": [(message["role"], message["content"]) for message in st.session_state.messages]})
 
-        print(type(result))
-
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
             full_response = ""
@@ -76,7 +73,7 @@ if uploaded_files:
             message_placeholder.markdown(full_response + "|")
         message_placeholder.markdown(full_response)    
         print(full_response)
-        st.session_state.messages.append({"role": "assistant", "content": json.dumps(result)})
+        st.session_state.messages.append({"role": "assistant", "content": full_response})
 
 else:
     st.write("Prosím nahrajte soubory PDF.")
