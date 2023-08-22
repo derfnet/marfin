@@ -1,4 +1,4 @@
-import streamlit as st
+ import streamlit as st
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.text_splitter import CharacterTextSplitter
@@ -30,10 +30,6 @@ if uploaded_files:
             loader = UnstructuredPDFLoader(file_path)
             loaded_documents = loader.load()
             print(f"Počet načtených souborů: {len(loaded_documents)}")
-
-            # Přidání názvu souboru k dokumentům
-            for doc in loaded_documents:
-                doc['file_name'] = uploaded_file.name
 
             documents.extend(loaded_documents)
 
@@ -72,12 +68,12 @@ if uploaded_files:
 
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
+            full_response = ""
             full_response = result["answer"]
-            file_name = result["file_name"]  # Předpokládáme, že název souboru je vrácen v odpovědi
-            message_placeholder.markdown(full_response + " (Soubor: " + file_name + ")|")
-            message_placeholder.markdown(full_response + " (Soubor: " + file_name + ")")
-            print(full_response)
-            st.session_state.messages.append({"role": "assistant", "content": full_response, "file_name": file_name})
+            message_placeholder.markdown(full_response + "|")
+        message_placeholder.markdown(full_response)    
+        print(full_response)
+        st.session_state.messages.append({"role": "assistant", "content": full_response})
 
 else:
     st.write("Prosím nahrajte soubory PDF.")
