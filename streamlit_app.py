@@ -50,7 +50,7 @@ if uploaded_files:
         document_chunks = st.session_state.processed_data["document_chunks"]
         vectorstore = st.session_state.processed_data["vectorstore"]
 
-    qa = ConversationalRetrievalChain.from_llm(llm, vectorstore.as_retriever())
+    qa = ConversationalRetrievalChain.from_llm(llm, vectorstore.as_retriever(), return_source_documents=True)
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
@@ -65,6 +65,7 @@ if uploaded_files:
             st.markdown(prompt)
 
         result = qa({"question": prompt, "chat_history": [(message["role"], message["content"]) for message in st.session_state.messages]})
+        print(result['source_documents'][0])
 
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
