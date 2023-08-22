@@ -77,7 +77,7 @@ if uploaded_files:
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
             full_response = ""
-            full_response = result["answer"] + "\n\n ***Zdroj: " + file_names_string + "***" + jsonpickle.encode(result) + page_content
+            full_response = result["answer"] + "\n\n ***Zdroj: " + file_names_string + "***" + jsonpickle.encode(page_content)
             message_placeholder.markdown(full_response + "|")
         message_placeholder.markdown(full_response)    
         print(full_response)
