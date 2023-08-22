@@ -65,7 +65,7 @@ if uploaded_files:
             st.markdown(prompt)
 
         result = qa({"question": prompt, "chat_history": [(message["role"], message["content"]) for message in st.session_state.messages]})
-        print(result['source_documents'])
+
 
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
