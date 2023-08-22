@@ -31,6 +31,10 @@ if uploaded_files:
             loaded_documents = loader.load()
             print(f"Počet načtených souborů: {len(loaded_documents)}")
 
+            # Přidání názvu souboru k dokumentům
+            for doc in loaded_documents:
+                doc['file_name'] = uploaded_file.name
+
             documents.extend(loaded_documents)
 
         text_splitter = CharacterTextSplitter(chunk_size=2000, chunk_overlap=200)
