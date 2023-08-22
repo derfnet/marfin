@@ -67,6 +67,11 @@ if uploaded_files:
 
         result = qa({"question": prompt, "chat_history": [(message["role"], message["content"]) for message in st.session_state.messages]})
 
+        if isinstance(result, Document):
+            result_dict = result.to_dict() # Předpokládá, že objekt Document má metodu to_dict()
+        else:
+            result_dict = result
+
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
             full_response = ""
