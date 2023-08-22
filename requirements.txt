@@ -6,3 +6,4 @@ tiktoken <= 0.4.0
 pypdf <= 3.14.0
 unstructured[all-docs]
 poppler-utils
+jsonpickle
