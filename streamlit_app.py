@@ -5,6 +5,7 @@ from langchain.text_splitter import CharacterTextSplitter
 from langchain.chains import ConversationalRetrievalChain
 from langchain.chat_models import ChatOpenAI
 from langchain.document_loaders import UnstructuredPDFLoader
+import json
 import os
 
 os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
@@ -66,13 +67,10 @@ if uploaded_files:
 
         result = qa({"question": prompt, "chat_history": [(message["role"], message["content"]) for message in st.session_state.messages]})
 
-        for source in result:
-            print(source)
-
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
             full_response = ""
-            full_response = result["answer"]
+            full_response = json.dumps(result)
             message_placeholder.markdown(full_response + "|")
         message_placeholder.markdown(full_response)    
         print(full_response)
