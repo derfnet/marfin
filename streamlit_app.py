@@ -69,12 +69,11 @@ if uploaded_files:
 
         source_documents = result.get('source_documents', [])
         sources = [doc['metadata']['source'] for doc in source_documents]
-        sources_str = ', '.join(sources)
 
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
             full_response = ""
-            full_response = result["answer"] + sources_str
+            full_response = result["answer"] + jsonpickle.encode(source_documents) + jsonpickle.encode(sources)
             message_placeholder.markdown(full_response + "|")
         message_placeholder.markdown(full_response)    
         print(full_response)
