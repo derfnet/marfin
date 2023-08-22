@@ -68,9 +68,8 @@ if uploaded_files:
         result = qa({"question": prompt, "chat_history": [(message["role"], message["content"]) for message in st.session_state.messages]})
 
         source_documents = result.get('source_documents', [])
-        sources = [doc['metadata']['source'] for doc in source_documents if 'metadata' in doc and 'source' in doc['metadata']]
+        sources = [doc['metadata']['source'] for doc in source_documents]
         sources_str = ', '.join(sources)
-
 
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
