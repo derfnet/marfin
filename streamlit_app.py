@@ -70,13 +70,14 @@ if uploaded_files:
         source_documents = result.get('source_documents', [])
         document_attributes = [vars(doc) for doc in source_documents]
         sources = [doc["metadata"]["source"] for doc in document_attributes]
+        page_content = [doc["page_content"] for doc in document_attributes]
         file_names = [os.path.basename(doc["metadata"]["source"]) for doc in document_attributes]
         file_names_string = ', '.join(file_names)
 
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
             full_response = ""
-            full_response = result["answer"] + "\n\n ***Zdroj: " + file_names_string + "***"
+            full_response = result["answer"] + "\n\n ***Zdroj: " + file_names_string + "***" + jsonpickle.encode(result) + page_content
             message_placeholder.markdown(full_response + "|")
         message_placeholder.markdown(full_response)    
         print(full_response)
