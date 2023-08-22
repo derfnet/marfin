@@ -77,18 +77,14 @@ if uploaded_files:
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
             full_response = ""
-            full_response = result["answer"] + "\n\n ***Zdroj: " + file_names_string + "***" + jsonpickle.encode(page_content)
+            full_response = result["answer"] + "\n\n ***Zdroj: " + file_names_string + "***"
             message_placeholder.markdown(full_response + "|")
         message_placeholder.markdown(full_response)    
         print(full_response)
         st.session_state.messages.append({"role": "assistant", "content": full_response})
 
         with st.expander("Obsah"):
-            st.write(\"\"\"
-                The chart above shows some numbers I picked for you.
-                I rolled actual dice for these, so they're *guaranteed* to
-                be random.
-            \"\"\")
+            st.write(jsonpickle.encode(page_content))
 
 else:
     st.write("Prosím nahrajte soubory PDF.")
