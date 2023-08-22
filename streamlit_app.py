@@ -70,7 +70,7 @@ if uploaded_files:
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
             full_response = ""
-            full_response = result["answer"] + jsonpickle.encode(result)
+            full_response = result["answer"] + jsonpickle.encode(result["metadata"])
             message_placeholder.markdown(full_response + "|")
         message_placeholder.markdown(full_response)    
         print(full_response)
