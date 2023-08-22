@@ -76,7 +76,7 @@ if uploaded_files:
             message_placeholder.markdown(full_response + "|")
         message_placeholder.markdown(full_response)    
         print(full_response)
-        st.session_state.messages.append({"role": "assistant", "content": type(result)})
+        st.session_state.messages.append({"role": "assistant", "content": full_response})
 
 else:
     st.write("Prosím nahrajte soubory PDF.")
