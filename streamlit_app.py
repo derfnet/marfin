@@ -52,7 +52,7 @@ if uploaded_files:
 
     qa = ConversationalRetrievalChain.from_llm(llm, vectorstore.as_retriever())
 
-     if "messages" not in st.session_state:
+    if "messages" not in st.session_state:
         st.session_state.messages = []
 
     for message in st.session_state.messages:
