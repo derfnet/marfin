@@ -83,5 +83,12 @@ if uploaded_files:
         print(full_response)
         st.session_state.messages.append({"role": "assistant", "content": full_response})
 
+        with st.expander("Obsah"):
+            st.write(\"\"\"
+                The chart above shows some numbers I picked for you.
+                I rolled actual dice for these, so they're *guaranteed* to
+                be random.
+            \"\"\")
+
 else:
     st.write("Prosím nahrajte soubory PDF.")
