@@ -83,8 +83,10 @@ if uploaded_files:
         print(full_response)
         st.session_state.messages.append({"role": "assistant", "content": full_response})
 
-        with st.expander("Obsah"):
-            st.write(jsonpickle.encode(page_content))
+        formatted_text = page_content[0].replace('\n', ' ')
+
+        with st.expander("Zdrojový text pro odpověď"):
+            st.write(st.caption(formatted_text))
 
 else:
     st.write("Prosím nahrajte soubory PDF.")
