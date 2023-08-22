@@ -86,7 +86,7 @@ if uploaded_files:
         formatted_text = page_content[0].replace('\n', ' ')
 
         with st.expander("Zdrojový text pro odpověď"):
-            st.write(st.caption(formatted_text))
+            st.write(formatted_text)
 
 else:
     st.write("Prosím nahrajte soubory PDF.")
