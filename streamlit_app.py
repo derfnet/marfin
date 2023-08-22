@@ -12,7 +12,7 @@ os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 
 llm = ChatOpenAI(temperature=0, max_tokens=1000, model_name="gpt-3.5-turbo")
 
-st.title("🤖MarFin 0.0.26\n (Kognitivní vyhledávání v obsahu dokumetů. Jako by to někdo potřeboval.)")
+st.title("🤖MarFin 0.0.31\n (Kognitivní vyhledávání v obsahu dokumetů.)")
 
 with st.sidebar:
     uploaded_files = st.file_uploader("Výběr souborů PDF", accept_multiple_files=True, type="pdf")
@@ -60,7 +60,7 @@ if uploaded_files:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
 
-    if prompt := st.chat_input("🤖Co chcete vědět? I když pochybuji, že vám mohu pomoci."):
+    if prompt := st.chat_input("🤖Co chcete vědět?"):
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
             st.markdown(prompt)
@@ -70,7 +70,7 @@ if uploaded_files:
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
             full_response = ""
-            full_response = result["answer"] + jsonpickle.encode(result["source_documents"])
+            full_response = result["answer"] + result["source_documents"][0]
             message_placeholder.markdown(full_response + "|")
         message_placeholder.markdown(full_response)    
         print(full_response)
