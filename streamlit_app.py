@@ -67,10 +67,12 @@ if uploaded_files:
 
         result = qa({"question": prompt, "chat_history": [(message["role"], message["content"]) for message in st.session_state.messages]})
 
+        print(type(result))
+
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
             full_response = ""
-            full_response = type(result)
+            full_response = result["answer"]
             message_placeholder.markdown(full_response + "|")
         message_placeholder.markdown(full_response)    
         print(full_response)
