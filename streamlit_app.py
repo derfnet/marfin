@@ -1,8 +1,8 @@
 import streamlit as st
-from langchain.chains.qa_with_sources.loading import load_qa_with_sources_chain
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.text_splitter import CharacterTextSplitter
+from langchain.chains import ConversationalRetrievalChain
 from langchain.chat_models import ChatOpenAI
 from langchain.document_loaders import UnstructuredPDFLoader
 import os
@@ -50,6 +50,30 @@ if uploaded_files:
         document_chunks = st.session_state.processed_data["document_chunks"]
         vectorstore = st.session_state.processed_data["vectorstore"]
 
-    qa = load_qa_with_sources_chain(llm, chain_type='stuff')  # Nahrazení původního řetězce
+    qa = ConversationalRetrievalChain.from_llm(llm, vectorstore.as_retriever())
 
-    # Zbytek kódu zůstává stejný
+    if "messages" not in st.session_state:
+        st.session_state.messages = []
+
+    for message in st.session_state.messages:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
+
+    if prompt := st.chat_input("🤖Co chcete vědět? I když pochybuji, že vám mohu pomoci."):
+        st.session_state.messages.append({"role": "user", "content": prompt})
+        with st.chat_message("user"):
+            st.markdown(prompt)
+
+        result = qa({"question": prompt, "chat_history": [(message["role"], message["content"]) for message in st.session_state.messages]})
+
+        with st.chat_message("assistant"):
+            message_placeholder = st.empty()
+            full_response = ""
+            full_response = result["answer"]
+            message_placeholder.markdown(full_response + "|")
+        message_placeholder.markdown(full_response)    
+        print(result)
+        st.session_state.messages.append({"role": "assistant", "content": full_response})
+
+else:
+    st.write("Prosím nahrajte soubory PDF.")
