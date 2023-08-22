@@ -1,4 +1,4 @@
- import streamlit as st
+import streamlit as st
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.text_splitter import CharacterTextSplitter
@@ -72,7 +72,7 @@ if uploaded_files:
             full_response = result["answer"]
             message_placeholder.markdown(full_response + "|")
         message_placeholder.markdown(full_response)    
-        print(full_response)
+        print(result)
         st.session_state.messages.append({"role": "assistant", "content": full_response})
 
 else:
