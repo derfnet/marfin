@@ -67,14 +67,10 @@ if uploaded_files:
 
         result = qa({"question": prompt, "chat_history": [(message["role"], message["content"]) for message in st.session_state.messages]})
 
-        sources = set(
-            [doc.metadata["source"] for doc in result["source_documents"]]
-        )
-
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
             full_response = ""
-            full_response = result["answer"] + sources
+            full_response = result["answer"] + jsonpickle.encode(result["source_documents"])
             message_placeholder.markdown(full_response + "|")
         message_placeholder.markdown(full_response)    
         print(full_response)
