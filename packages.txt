@@ -3,3 +3,4 @@ poppler-utils
 tesseract-ocr
 libreoffice
 pandoc
+jsonpickle
