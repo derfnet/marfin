@@ -90,7 +90,7 @@ if uploaded_files:
 
         with st.expander("Zdrojový text pro odpověď"):
             st.write(formatted_text)
-            st.markdown(document_attributes)
+            jsonpickle.dumps(source_documents)
 
 else:
     st.write("Prosím nahrajte soubory PDF.")
