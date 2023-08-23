@@ -79,7 +79,7 @@ if uploaded_files:
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
             full_response = ""
-            full_response = result["answer"] + "\n\n ***Zdroj: " + file_names_string + "***" + " Počet nálezů:" + count_file + "x"
+            full_response = result["answer"] + "\n\n ***Zdroj: " + file_names_string + "***" + " Počet nálezů:" + str(count_file) + "x"
             message_placeholder.markdown(full_response + "|")
         message_placeholder.markdown(full_response)    
         st.session_state.messages.append({"role": "assistant", "content": full_response})
