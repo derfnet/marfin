@@ -10,7 +10,7 @@ import os
 
 os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 
-llm = ChatOpenAI(temperature=0, max_tokens=1000, model_name="gpt-3.5-turbo")
+llm = ChatOpenAI(temperature=0, max_tokens=1000, model_name="gpt-4")
 
 st.title("🤖MarFin 0.0.31\n (Kognitivní vyhledávání v obsahu dokumetů.)")
 
@@ -71,9 +71,12 @@ if uploaded_files:
         document_attributes = [vars(doc) for doc in source_documents]
         sources = [doc["metadata"]["source"] for doc in document_attributes]
         page_content = [doc["page_content"] for doc in document_attributes]
-        file_names = [os.path.basename(doc["metadata"]["source"]) for doc in document_attributes]
-        file_names_string = ', '.join(file_names)
+        file_names = [os.path.basename(doc["metadata"]["source"]) for doc in document_attributes if doc["metadata"]["source"] is not None]
 
+        if file_names:
+            file_names_string = ', '.join(file_names)
+        else:
+            file_names_string = "Nejsou dostupné žádné soubory"
 
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
