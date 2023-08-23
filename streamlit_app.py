@@ -72,15 +72,16 @@ if uploaded_files:
         sources = [doc["metadata"]["source"] for doc in document_attributes]
         page_content = [doc["page_content"] for doc in document_attributes]
         file_names = [os.path.basename(doc["metadata"]["source"]) for doc in document_attributes]
-        file_names_string = ', '.join(file_names)
+        file_name = list(set(file_names))
+        file_names_string = ', '.join(file_name)
+        count_file = len(file_names)
 
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
             full_response = ""
-            full_response = result["answer"] + "\n\n ***Zdroj: " + file_names_string + "***"
+            full_response = result["answer"] + "\n\n ***Zdroj: " + file_names_string + "***" + " Počet nálezů:" + count_file + "x"
             message_placeholder.markdown(full_response + "|")
         message_placeholder.markdown(full_response)    
-        print(full_response)
         st.session_state.messages.append({"role": "assistant", "content": full_response})
 
         formatted_text = page_content[0].replace('\n', ' ')
