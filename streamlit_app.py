@@ -72,9 +72,9 @@ if uploaded_files:
         sources = [doc["metadata"]["source"] for doc in document_attributes]
         page_content = [doc["page_content"] for doc in document_attributes]
         file_names = [os.path.basename(doc["metadata"]["source"]) for doc in document_attributes]
-        file_name = list(set(file_names))
-        file_names_string = ', '.join(file_name)
-        count_file = len(file_names)
+
+        file_names_string = ', '.join(file_names)
+
 
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
