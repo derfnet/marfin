@@ -81,7 +81,7 @@ if uploaded_files:
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
             full_response = ""
-            full_response = result["answer"] + "\n\n ***Zdroj: " + file_names_string + "***"
+            full_response = result["answer"] + "\n\n ***Zdroj: " + file_names_string + "***" + jsonpickle.dumps(source_documents)
             message_placeholder.markdown(full_response + "|")
         message_placeholder.markdown(full_response)    
         st.session_state.messages.append({"role": "assistant", "content": full_response})
@@ -90,7 +90,6 @@ if uploaded_files:
 
         with st.expander("Zdrojový text pro odpověď"):
             st.write(formatted_text)
-            jsonpickle.dumps(source_documents)
 
 else:
     st.write("Prosím nahrajte soubory PDF.")
