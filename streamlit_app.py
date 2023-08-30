@@ -82,7 +82,7 @@ if uploaded_files:
             message_placeholder = st.empty()
             full_response = ""
             #full_response = result["answer"] + "\n\n ***Zdroj: " + file_names_string + "***" + jsonpickle.dumps(source_documents)
-            full_response = result["answer"] + "\n\n ***Zdroj: " + file_names_string
+            full_response = result["answer"]
             message_placeholder.markdown(full_response + "|")
         message_placeholder.markdown(full_response)    
         st.session_state.messages.append({"role": "assistant", "content": full_response})
