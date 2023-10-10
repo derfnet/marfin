@@ -12,7 +12,7 @@ os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 
 llm = ChatOpenAI(temperature=0, max_tokens=1000, model_name="gpt-3.5-turbo")
 
-st.title("🤖MarFin 0.0.31\n (Kognitivní vyhledávání v obsahu dokumetů.)")
+st.title("🤖Kognitivní vyhledávání v obsahu dokumetů.")
 
 with st.sidebar:
     uploaded_files = st.file_uploader("Výběr souborů PDF", accept_multiple_files=True, type="pdf")
@@ -87,7 +87,12 @@ if uploaded_files:
         message_placeholder.markdown(full_response)    
         st.session_state.messages.append({"role": "assistant", "content": full_response})
 
-        formatted_text = page_content[0].replace('\n', ' ')
+        formatted_text = ""
+
+        # Získání nového zdrojového textu pro odpověď
+        if source_documents:
+            page_content = [doc["page_content"] for doc in document_attributes]
+            formatted_text = page_content[0].replace('\n', ' ')
 
         with st.expander("Zdrojový text pro odpověď"):
             st.write(formatted_text)
