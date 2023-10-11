@@ -14,15 +14,6 @@ llm = ChatOpenAI(temperature=0, max_tokens=1000, model_name="gpt-3.5-turbo-16k")
 
 st.title("🤖Kognitivní vyhledávání v obsahu dokumetů.")
 
-st.info(
-    """
-    Příklady užití:\n
-    -Existuje program speciálně pro bavlnu, syntetiku nebo ruční praní?
-    -Řekni mi vic o programu syntetika
-    ...
-    """,
-    icon="🕵️‍♀️",
-)
 
 with st.sidebar:
     uploaded_files = st.file_uploader("Výběr souborů PDF", accept_multiple_files=True, type="pdf")
