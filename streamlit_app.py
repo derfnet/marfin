@@ -18,8 +18,8 @@ st.title("🤖Kognitivní vyhledávání v obsahu dokumetů.")
 st.info(
     """
     Příklady užití:\n
-    -Existuje program speciálně pro bavlnu, syntetiku nebo ruční praní?\n
-    -Řekni mi vic o programu syntetika\n
+    -Existuje program speciálně pro hedvábí?\n
+    -Řekni mi vic o programu hedvábí\n
     ...\n
     """,
     icon="🕵️‍♀️",
