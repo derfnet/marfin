@@ -17,9 +17,11 @@ st.title("🤖Kognitivní vyhledávání v obsahu dokumetů.")
 st.info(
     """
     Příklady užití:\n
-    xxx
+    -Existuje program speciálně pro bavlnu, syntetiku nebo ruční praní?
+    -Řekni mi vic o programu syntetika
+    ...
     """,
-    icon="👾",
+    icon="🕵️‍♀️",
 )
 
 with st.sidebar:
