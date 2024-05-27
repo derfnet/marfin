@@ -10,7 +10,7 @@ import os
 
 os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 
-llm = ChatOpenAI(temperature=0, max_tokens=1000, model_name="gpt-3.5-turbo-16k")
+llm = ChatOpenAI(temperature=0, max_tokens=1000, model_name="gpt-4o")
 
 st.title("🤖Kognitivní vyhledávání v obsahu dokumetů.")
 
