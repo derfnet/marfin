@@ -13,7 +13,7 @@ os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 # Inicializace language modelu s specifikovanými parametry
 llm = ChatOpenAI(temperature=0, max_tokens=1000, model_name="gpt-4")
 
-st.title("🤖Kognitivní vyhledávání v obsahu dokumetů.")
+st.title("🤖Kognitivní vyhledávání v obsahu dokumetů..")
 
 # Informační sekce s příklady použití
 st.info(
