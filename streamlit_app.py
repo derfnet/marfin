@@ -1,33 +1,29 @@
 from openai import OpenAI
 import streamlit as st
 
-st.title("Oficiálně podporovaný a plně v souladu se všemi předpisy: GPT klon, který nepřekračuje žádné stanovy ani pravidla Zscaleru")
+with st.sidebar:
+    openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password")
+    "[Get an OpenAI API key](https://platform.openai.com/account/api-keys)"
+    "[View the source code](https://github.com/streamlit/llm-examples/blob/main/Chatbot.py)"
+    "[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/streamlit/llm-examples?quickstart=1)"
 
-client = OpenAI(api_key=st.secrets["sk-proj-KF8TKKi5FVeFfvd1g0ssT3BlbkFJnKESAChVOL5fMC5CdrXY"])
-
-if "openai_model" not in st.session_state:
-    st.session_state["openai_model"] = "gpt-3.5-turbo"
-
+st.title("💬 Chatbot")
+st.caption("🚀 Oficiálně podporovaný a plně v souladu se všemi předpisy: GPT klon, který nepřekračuje žádné stanovy ani pravidla Zscaleru")
 if "messages" not in st.session_state:
-    st.session_state.messages = []
+    st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
 
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+for msg in st.session_state.messages:
+    st.chat_message(msg["role"]).write(msg["content"])
 
-if prompt := st.chat_input("What is up?"):
+if prompt := st.chat_input():
+    if not openai_api_key:
+        st.info("Please add your OpenAI API key to continue.")
+        st.stop()
+
+    client = OpenAI(api_key=openai_api_key)
     st.session_state.messages.append({"role": "user", "content": prompt})
-    with st.chat_message("user"):
-        st.markdown(prompt)
-
-    with st.chat_message("assistant"):
-        stream = client.chat.completions.create(
-            model=st.session_state["openai_model"],
-            messages=[
-                {"role": m["role"], "content": m["content"]}
-                for m in st.session_state.messages
-            ],
-            stream=True,
-        )
-        response = st.write_stream(stream)
-    st.session_state.messages.append({"role": "assistant", "content": response})
+    st.chat_message("user").write(prompt)
+    response = client.chat.completions.create(model="gpt-3.5-turbo", messages=st.session_state.messages)
+    msg = response.choices[0].message.content
+    st.session_state.messages.append({"role": "assistant", "content": msg})
+    st.chat_message("assistant").write(msg)
